@@ -19,7 +19,9 @@ import fr.epita.quiz.services.AuthenticationService;
 import fr.epita.quiz.services.UsersDAO;
 
 /**
- * Servlet implementation class Login
+ * @author Bhrigu
+ * 
+ *         Servlet implementation class Login
  */
 
 @WebServlet(urlPatterns = "/login")
@@ -51,8 +53,6 @@ public class Login extends SpringServlet {
 		if (request.getParameter("login") != null) {
 			final String login = request.getParameter("login");
 			final String password = request.getParameter("password");
-			System.out.println("login : " + login);
-			System.out.println("password" + password);
 
 			List<Users> users = (List<Users>) repository.searchUsers(new Users());
 			for (Users user : users) {

@@ -35,9 +35,13 @@
 		<div>
 			<div class="jumbotron">
 				<div class="container">
-					<h1 class="text-info">Update User</h1>
-					<a href="<%=request.getContextPath() %>/questionList">List of
-						Questions</a> <a href="search.jsp">Search</a>
+					<h1 align="center" class="text-info">Update User</h1>
+					<div><a href="<%=request.getContextPath() %>/questionList">List ofQuestions</a> </div>
+					<div align="right">
+				<a href="adminLogin.html">Logout</a>
+			</div>
+						<div align="left"><a href="<%=request.getContextPath() %>/usersService">List of Users</a></div>
+							
 				</div>
 			</div>
 		</div>
@@ -63,24 +67,14 @@
 				<input name="role" value="<%=user.getRole()%>" type="text"
 					class="form-control" id="role" placeholder="Enter your Role" />
 			</div>
-			<div class="form-group row">
-                    <label for="role">Role</label>
-                    <select class="form-control" id="role" name="role" >
-                        <option>Please Select Any Role</option>
-                        <option value="<%=user.getRole()%>">Admin</option>
-                        <option value="<%=user.getRole()%>">User</option>
-                    </select>                   
-                </div>
+		
 			<div class="form-group row">
 				<label for="password" class="col-sm-2 col-form-label">Password</label>
 				<input name="password" value="<%=user.getPassword()%>" type="password"
 					class="form-control" id="password" placeholder="Enter your Password" />
 			</div>
-			<div class="form-group row">
-				<label for="role" class="col-sm-2 col-form-label">Enabled</label>
-				<td><input type="checkbox" name="enabled" id="enabled" value="<%=user.isEnabled()%>"></td>
-			</div>
-			<button type="submit" class="btn btn-primary" value="Update"
+		
+			<button type="submit" style="margin-center: 30px" class="btn btn-primary" value="Update"
 				name="update">Update</button>
 
 		</form>

@@ -17,6 +17,11 @@ import fr.epita.quiz.datamodel.QuestionType;
 import fr.epita.quiz.services.AddQuestionDAO;
 import fr.epita.quiz.web.actions.SpringServlet;
 
+/**
+ * 
+ * @author Bhrigu
+ *
+ */
 @Service
 @Transactional
 @WebServlet(urlPatterns = "/examServices")

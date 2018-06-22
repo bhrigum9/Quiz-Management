@@ -8,6 +8,11 @@ import javax.inject.Named;
 
 import fr.epita.quiz.datamodel.Question;
 
+/**
+ * 
+ * @author Bhrigu
+ *
+ */
 public class AddQuestionDAO extends GenericORMDao<Question> {
 	@Inject
 	@Named("questionQuery")

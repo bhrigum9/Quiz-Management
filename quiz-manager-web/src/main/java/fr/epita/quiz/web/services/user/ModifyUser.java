@@ -17,6 +17,11 @@ import fr.epita.quiz.datamodel.Users;
 import fr.epita.quiz.services.UsersDAO;
 import fr.epita.quiz.web.actions.SpringServlet;
 
+/**
+ * 
+ * @author Bhrigu
+ *
+ */
 @Service
 @Transactional
 @WebServlet(urlPatterns = "/modifyUser")

@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.epita.quiz.datamodel.Question;
 import fr.epita.quiz.services.AddQuestionDAO;
+import fr.epita.quiz.tests.TestCase;
 import fr.epita.quiz.web.actions.SpringServlet;
 
+/**
+ * 
+ * @author Bhrigu
+ *
+ */
 @Service
 @Transactional
 @WebServlet(urlPatterns = "/modifyQuestion")
 public class ModifyQuestion extends SpringServlet {
+	private static final Logger LOGGER = LogManager.getLogger(TestCase.class);
+
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private AddQuestionDAO repository;
@@ -44,7 +54,7 @@ public class ModifyQuestion extends SpringServlet {
 					repository.delete(deleteQuestion);
 					response.sendRedirect(request.getContextPath() + "/questionList");
 				} catch (DataException e) {
-					// TODO Auto-generated catch block
+					LOGGER.info(e);
 					e.printStackTrace();
 				}
 			}
@@ -65,7 +75,7 @@ public class ModifyQuestion extends SpringServlet {
 				response.sendRedirect(request.getContextPath() + "/questionList");
 
 			} catch (DataException e) {
-				// TODO Auto-generated catch block
+				LOGGER.info(e);
 				e.printStackTrace();
 			}
 		}
@@ -78,7 +88,7 @@ public class ModifyQuestion extends SpringServlet {
 				response.sendRedirect(request.getContextPath() + "/questionAction");
 
 			} catch (DataException e) {
-				// TODO Auto-generated catch block
+				LOGGER.info(e);
 				e.printStackTrace();
 			}
 		} else {

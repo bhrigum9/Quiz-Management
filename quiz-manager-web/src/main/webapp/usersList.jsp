@@ -26,15 +26,18 @@
 		<div>
 			<div class="jumbotron">
 				<div class="container">
-					<h1 class="text-info" align="center">List of all Questions</h1>
+					<h1 class="text-info" align="center">List of Users</h1>
 					<a href="question.jsp">Add New Question</a>
-					<a href="Search.jsp">Search</a>
-				</div>
+<div align="right">
+				<a href="adminLogin.html">Logout</a>
+			</div>	
+			<div>	<a href="<%=request.getContextPath() %>/questionList">List of
+					Questions</a></div>			</div>
 			</div>
 
 	</div>
 	<div class="container">
-		<h3 class="text-info">Search Results</h3>
+		<h3 class="text-info">Results</h3>
 
 		<form class="form-horizontal"  method="post" action="modifyUser">
 			<div class="table-responsive">
@@ -62,9 +65,6 @@
 						   					   %>
 						<tr>
 							<td><input name="selection" type="radio" value="<%=user.getUserRoleId()%>"/></td>
-							<%-- <td> <label for="id" name="id" id="id" value="<%=id.getId() %>"><%=id.getId() %></label></td> --%>
-<%-- 							<td><%=id.getId() %></td>
- --%>							
   							<td><%=user.getUsername() %></td>
 							<td><%=user.getEmail() %></td> 
 							<td><%=user.getRole() %></td>
@@ -79,8 +79,9 @@
 			<div class="form-group">
 				<div class=" col-sm-offset-2 col-sm-10 text-right">
 					
-					<button type="submit" class="btn btn-primary" value="Modify" name="modify">Modify</button>
-					<button type="submit" class="btn btn-primary" value="Delete" name="delete">Delete</button>
+					<button type="submit" style="margin-right: 30px" class="btn btn-primary" value="Modify" name="modify">Modify</button>
+					
+					<button type="submit"  style="margin-right: 30px"class="btn btn-primary" value="Delete" name="delete">Delete</button>
 				</div>
 	</div>
 	</form>

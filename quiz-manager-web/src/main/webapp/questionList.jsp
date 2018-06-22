@@ -27,9 +27,15 @@
 			<div class="jumbotron">
 				<div class="container">
 					<h1 class="text-info" align="center">List of all Questions</h1>
-					<a href="question.jsp">Add New Question</a>
-					<a href="<%=request.getContextPath() %>/usersService">List of Users</a>
+					
 				</div>
+				
+							<div align="left"><a href="<%=request.getContextPath() %>/usersService">List of Users</a></div>
+							<div align="right">
+				<a href="adminLogin.html">Logout</a>
+			</div>
+								<div>	<a href="question.jsp">Add New Question</a></div>
+				
 			</div>
 
 	</div>
@@ -80,12 +86,12 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="form-group">
+			<div class="form-group" align="center">
 				<div class=" col-sm-offset-2 col-sm-10 text-right">
 					
-					<button type="submit" class="btn btn-primary" value="Modify" name="modify">Modify</button>
-					<button type="submit" class="btn btn-primary" value="Delete" name="delete">Delete</button>
-					<button type="submit" class="btn btn-primary" value="DeleteAll" name="deleteAll">Delete All</button>
+					<button type="submit" style="margin-right: 30px" class="btn btn-primary" value="Modify" name="modify">Modify</button>
+					<button type="submit" style="margin-right: 30px"class="btn btn-primary" value="Delete" name="delete">Delete</button>
+					<button type="submit" style="margin-right: 30px"class="btn btn-primary" value="DeleteAll" name="deleteAll">Delete All</button>
 				</div>
 	</div>
 	</form>
