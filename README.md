@@ -5,4 +5,4 @@ url-http://localhost:8080/quiz-manager-web/
 Port-8080
 Database-testDS
 Username-root
-Password-root
+Password-password
