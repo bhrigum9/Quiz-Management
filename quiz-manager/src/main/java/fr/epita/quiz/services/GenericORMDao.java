@@ -26,6 +26,10 @@ public abstract class GenericORMDao<T> {
 	@Inject
 	SessionFactory sf;
 
+	/**
+	 * 
+	 * @param entity
+	 */
 	public final void create(T entity) {
 		if (!beforeCreate(entity)) {
 			return;
@@ -38,10 +42,19 @@ public abstract class GenericORMDao<T> {
 		session.close();
 	}
 
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	protected boolean beforeCreate(T entity) {
 		return entity != null;
 	}
 
+	/**
+	 * 
+	 * @param entity
+	 */
 	public final void delete(T entity) {
 		final Session session = sf.openSession();
 		final Transaction tx = session.beginTransaction();
@@ -50,6 +63,10 @@ public abstract class GenericORMDao<T> {
 		session.close();
 	}
 
+	/**
+	 * 
+	 * @param entity
+	 */
 	public final void deleteAll(List<T> entity) {
 		final Session session = sf.openSession();
 		final Transaction tx = session.beginTransaction();
@@ -58,6 +75,11 @@ public abstract class GenericORMDao<T> {
 		session.close();
 	}
 
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public final List<T> getQuizName(T entity) {
 		final Session session = sf.openSession();
@@ -70,6 +92,11 @@ public abstract class GenericORMDao<T> {
 		return getTypeQuery.list();
 	}
 
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	public final List<Question> getQuestions(Question entity) {
 		final Session session = sf.openSession();
 		String hql = "from Question s where s.quizName = :quizName";
@@ -79,6 +106,11 @@ public abstract class GenericORMDao<T> {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	public Collection<T> searchAll(T entity) {
 		List<T> list = new ArrayList<>();
 		final Session session = sf.openSession();
@@ -86,21 +118,41 @@ public abstract class GenericORMDao<T> {
 		return list;
 	}
 
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	public Collection<T> searchUsers(T entity) {
 		final Session session = sf.openSession();
 		return (List<T>) session.createQuery("from Users", Users.class).list();
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Users getUsersById(int id) {
 		final Session session = sf.openSession();
 		return session.get(Users.class, id);
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Question getById(int id) {
 		final Session session = sf.openSession();
 		return session.get(Question.class, id);
 	}
 
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	public final List<T> search(T entity) {
 		final Session session = sf.openSession();
 		final WhereClauseBuilder<T> wcb = getWhereClauseBuilder(entity);
@@ -112,6 +164,11 @@ public abstract class GenericORMDao<T> {
 		return searchQuery.list();
 	}
 
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	protected abstract WhereClauseBuilder getWhereClauseBuilder(T entity);
 
 	// Old conception

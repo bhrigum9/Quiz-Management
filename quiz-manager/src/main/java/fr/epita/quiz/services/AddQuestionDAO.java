@@ -18,6 +18,12 @@ public class AddQuestionDAO extends GenericORMDao<Question> {
 	@Named("questionQuery")
 	String query;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.epita.quiz.services.GenericORMDao#getWhereClauseBuilder(java.lang.Object)
+	 */
 	@Override
 	protected WhereClauseBuilder getWhereClauseBuilder(Question entity) {
 		// TODO Auto-generated method stub

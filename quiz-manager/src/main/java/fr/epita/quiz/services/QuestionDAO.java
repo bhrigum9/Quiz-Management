@@ -19,14 +19,16 @@ public class QuestionDAO {
 	@Named("questionQuery")
 	String query;
 
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	protected WhereClauseBuilder<Question> getWhereClauseBuilder(Question entity) {
 		final WhereClauseBuilder<Question> wcb = new WhereClauseBuilder<>();
 		wcb.setQueryString(query);
 
-		// TODO as bonus : let the whereclausebuilder generate this map thanks to
-		// introspection
 		final Map<String, Object> parameters = new LinkedHashMap<>();
-		// parameters.put("type", entity.getType());
 		parameters.put("question", entity.getQuestion());
 		wcb.setParameters(parameters);
 		return wcb;

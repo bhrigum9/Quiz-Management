@@ -15,11 +15,6 @@ import fr.epita.quiz.datamodel.Question;
 import fr.epita.quiz.services.AddQuestionDAO;
 import fr.epita.quiz.web.services.messages.QuestionMessage;
 
-/**
- * 
- * @author Bhrigu
- *
- */
 @Repository
 public class QuestionService {
 

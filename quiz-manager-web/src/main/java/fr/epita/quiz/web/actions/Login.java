@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +29,7 @@ import fr.epita.quiz.services.UsersDAO;
 @WebServlet(urlPatterns = "/login")
 public class Login extends SpringServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LogManager.getLogger(Login.class);
 
 	@Inject
 	AuthenticationService auth;
@@ -44,56 +47,102 @@ public class Login extends SpringServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@SuppressWarnings("unlikely-arg-type")
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
-		if (request.getParameter("login") != null) {
-			final String login = request.getParameter("login");
-			final String password = request.getParameter("password");
 
-			List<Users> users = (List<Users>) repository.searchUsers(new Users());
-			for (Users user : users) {
-				if (user.getUsername().equals(login) && user.getPassword().equals(password)) {
-					final boolean authenticated = auth.authenticate(login, password);
-					request.getSession().setAttribute("authenticated", authenticated);
-					request.getSession().setAttribute("userName", login);
-					if (user.getRole().name().equals(RolesType.Admin.name())) {
-						response.sendRedirect("question.jsp");
-					} else if (user.getRole().name().equals(RolesType.User.name())) {
-						response.sendRedirect("selectQuiz.jsp");
+		if (request.getParameter("login") != null) {
+			try {
+				final String login = request.getParameter("login");
+				final String password = request.getParameter("password");
+
+				List<Users> users = (List<Users>) repository.searchUsers(new Users());
+				for (Users user : users) {
+					if (user.getUsername().equals(login) && user.getPassword().equals(password)) {
+						final boolean authenticated = auth.authenticate(login, password);
+						request.getSession().setAttribute("authenticated", authenticated);
+						request.getSession().setAttribute("userName", login);
+						if (user.getRole().name().equals(RolesType.Admin.name())) {
+							response.sendRedirect("question.jsp");
+							LOGGER.info("Admin Login Sucessfully");
+						} else if (user.getRole().name().equals(RolesType.User.name())) {
+							response.sendRedirect("selectQuiz.jsp");
+							LOGGER.info("User Login Sucessfully");
+
+						}
 					}
 				}
+			} catch (Exception e) {
+				LOGGER.error(e);
+				e.printStackTrace();
 			}
 
 		} else if (request.getParameter("registerAdmin") != null) {
-			createUsers(request, response, RolesType.Admin);
+			try {
+				createUsers(request, response, RolesType.Admin);
+				LOGGER.info("Admin Registered Sucessfully");
+			} catch (Exception e) {
+				LOGGER.error(e);
+				e.printStackTrace();
+			}
 
 		} else if (request.getParameter("registerUser") != null) {
-			createUsers(request, response, RolesType.User);
+			try {
+				createUsers(request, response, RolesType.User);
+				LOGGER.info("User Registered Sucessfully");
+			} catch (Exception e) {
+				LOGGER.error(e);
+				e.printStackTrace();
+			}
+
 		} else {
 			request.getRequestDispatcher("Error.jsp").forward(request, response);
 			request.getSession().setAttribute("authenticated", false);
+			LOGGER.error("Login Authentication Failed");
 		}
 	}
 
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param roleType
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void createUsers(HttpServletRequest request, HttpServletResponse response, RolesType roleType)
 			throws ServletException, IOException {
+		final Users user = prepareUser(request, roleType);
+		try {
+			repository.create(user);
+			LOGGER.info("User Registered Sucessfully");
+			response.sendRedirect(request.getContextPath() + "/index.html");
+		} catch (DataException e) {
+			LOGGER.error(e);
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @param request
+	 * @param roleType
+	 * @return
+	 */
+	private Users prepareUser(HttpServletRequest request, RolesType roleType) {
 		final Users user = new Users();
 		user.setUsername(request.getParameter("username"));
 		user.setPassword(request.getParameter("password"));
 		user.setEmail(request.getParameter("email"));
 		user.setEnabled(true);
 		user.setRole(roleType);
-		try {
-			repository.create(user);
-			response.sendRedirect(request.getContextPath() + "/index.html");
-
-		} catch (DataException e) {
-			e.printStackTrace();
-		}
+		return user;
 	}
 
 }
