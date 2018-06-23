@@ -35,7 +35,7 @@
 		<div>
 			<div class="jumbotron" align="center">
 				<div class="container">
-					<h1 class="text-info">Update Question</h1>
+					<h1 class="text-info">Update Open Question</h1>
 				</div>
 								<div align="left"><a href="<%=request.getContextPath() %>/usersService">List of Users</a></div>
 				<div align="right">
@@ -64,36 +64,8 @@
 					<label for="question" class="col-sm-2 col-form-label">Question Title</label> 
 					<input name="question" value="<%=addQuestion.getQuestion()%>" type="text" class="form-control" id="question"
 						placeholder="Enter your Question" />
-				</div>
-				<div class="form-group row">
-					<label for="option1" class="col-sm-2 col-form-label">Option1</label> 
-					<input name="option1" value="<%=addQuestion.getOption1()%>" type="text" class="form-control" id="option1"
-						placeholder="Enter your Option" />
-				</div>
-				<div class="form-group row">
-					<label for="option2" class="col-sm-2 col-form-label">Option2</label> 
-					<input name="option2" value="<%=addQuestion.getOption2()%>" type="text" class="form-control" id="option2"
-						placeholder="Enter your Option" />
-				</div>
-				<div class="form-group row">
-					<label for="option3" class="col-sm-2 col-form-label">Option3</label> 
-					<input name="option3" value="<%=addQuestion.getOption3()%>" type="text" class="form-control" id="option3"
-						placeholder="Enter your Option" />
-				</div>
-				<div class="form-group row">
-					<label for="option4" class="col-sm-2 col-form-label">Option4</label> 
-					<input name="option4" value="<%=addQuestion.getOption4()%>" type="text" class="form-control" id="option4"
-						placeholder="Enter your Option" />
-				</div>
-				
-				
-		
-				<div class="form-group row">
-					<label for="answer" class="col-sm-2 col-form-label">Correct Answer</label> 
-					<input name="answer" value="<%=addQuestion.getAnswer()%>" type="text" class="form-control" id="answer"
-						/>
-				</div>
-					<button type="submit" class="btn btn-primary" value="Update" name="update">Update</button>
+				</div>	
+					<button type="submit" class="btn btn-primary" value="UpdateOpen" name="updateOpen">Update</button>
 
 			</form>
 		</div>

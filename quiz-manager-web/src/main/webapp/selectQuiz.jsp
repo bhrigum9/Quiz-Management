@@ -1,6 +1,8 @@
-<div class="container">
-  <h2>Select Quiz</h2>
+<div class="container" align="center">
+  <h2>Select Quiz Type to take Test</h2>
 		<form class="form-horizontal"  method="post" action="examServices">
+		<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
      <div class="form-group ">
       <label class="control-label " for="select">
        Select a Choice
@@ -21,6 +23,5 @@
     <button type="submit" name="open" value="open" class="btn btn-primary" style="margin:10px;">The Open Questions</button>
     <button type="submit" name="associate" value="associate" class="btn btn-primary" style="margin:10px;">Associative questions</button>
     
-   
   </form>
 </div>

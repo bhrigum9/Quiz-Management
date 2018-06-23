@@ -1,5 +1,6 @@
 package fr.epita.quiz.datamodel;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,7 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-
+	@Column(unique = true, nullable = false)
 	private String question;
 
 	private String option1;
@@ -27,9 +28,9 @@ public class Question {
 	private String option4;
 
 	private String answer;
-
+	@Column(nullable = false)
 	private QuestionType type;
-
+	@Column(nullable = false)
 	private String quizName;
 
 	public int getId() {

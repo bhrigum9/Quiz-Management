@@ -70,18 +70,20 @@ public class Login extends SpringServlet {
 						request.getSession().setAttribute("authenticated", authenticated);
 						request.getSession().setAttribute("userName", login);
 						if (user.getRole().name().equals(RolesType.Admin.name())) {
-							response.sendRedirect("question.jsp");
 							LOGGER.info("Admin Login Sucessfully");
+							response.sendRedirect("selectQuestionType.jsp");
 						} else if (user.getRole().name().equals(RolesType.User.name())) {
-							response.sendRedirect("selectQuiz.jsp");
 							LOGGER.info("User Login Sucessfully");
+							response.sendRedirect("selectQuiz.jsp");
 
 						}
 					}
 				}
 			} catch (Exception e) {
 				LOGGER.error(e);
+				LOGGER.info("Incorrect User Name or Password");
 				e.printStackTrace();
+				request.getRequestDispatcher("error.jsp").forward(request, response);
 			}
 
 		} else if (request.getParameter("registerAdmin") != null) {
@@ -103,9 +105,9 @@ public class Login extends SpringServlet {
 			}
 
 		} else {
-			request.getRequestDispatcher("Error.jsp").forward(request, response);
-			request.getSession().setAttribute("authenticated", false);
 			LOGGER.error("Login Authentication Failed");
+			request.getSession().setAttribute("authenticated", false);
+			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
 	}
 

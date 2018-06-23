@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.epita.quiz.datamodel.Question;
+import fr.epita.quiz.datamodel.QuestionType;
 import fr.epita.quiz.services.AddQuestionDAO;
 import fr.epita.quiz.web.actions.SpringServlet;
 
@@ -45,12 +46,15 @@ public class ModifyQuestion extends SpringServlet {
 			throws ServletException, IOException {
 		if (request.getParameter("selection") != null) {
 			if (request.getParameter("modify") != null) {
-
 				Question editQuestion = (Question) repository
 						.getById(Integer.parseInt(request.getParameter("selection")));
 				request.getSession().setAttribute("addQuestion", editQuestion);
 				LOGGER.info("Redirected to Update User Sucessfully");
-				response.sendRedirect("updateQuestion.jsp");
+				if (editQuestion.getType().equals(QuestionType.MCQ)) {
+					response.sendRedirect("updateQuestion.jsp");
+				} else if (editQuestion.getType().equals(QuestionType.OPEN)) {
+					response.sendRedirect("updateOpenQuestion.jsp");
+				}
 
 			} else if (request.getParameter("delete") != null) {
 				Question deleteQuestion = (Question) repository
@@ -68,14 +72,12 @@ public class ModifyQuestion extends SpringServlet {
 
 			final Question updateQuestion = prepareQuestion(request);
 
-			try {
-				repository.create(updateQuestion);
-				LOGGER.info("Question Updated Sucessfully");
-				response.sendRedirect(request.getContextPath() + "/questionList");
-			} catch (DataException e) {
-				LOGGER.error(e);
-				e.printStackTrace();
-			}
+			updateQuestions(request, response, updateQuestion);
+		} else if (request.getParameter("updateOpen") != null) {
+
+			final Question updateQuestion = prepareOpenQuestion(request);
+
+			updateQuestions(request, response, updateQuestion);
 		}
 
 		else if (request.getParameter("deleteAll") != null) {
@@ -92,9 +94,28 @@ public class ModifyQuestion extends SpringServlet {
 			}
 
 		} else {
+			LOGGER.info("Something went Wrong!!!");
 			response.sendRedirect(request.getContextPath() + "/questionList");
 		}
 
+	}
+
+	/**
+	 * @param request
+	 * @param response
+	 * @param updateQuestion
+	 * @throws IOException
+	 */
+	private void updateQuestions(HttpServletRequest request, HttpServletResponse response,
+			final Question updateQuestion) throws IOException {
+		try {
+			repository.create(updateQuestion);
+			LOGGER.info("Question Updated Sucessfully");
+			response.sendRedirect(request.getContextPath() + "/questionList");
+		} catch (DataException e) {
+			LOGGER.error(e);
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -109,8 +130,23 @@ public class ModifyQuestion extends SpringServlet {
 		updateQuestion.setOption2(request.getParameter("option2"));
 		updateQuestion.setOption3(request.getParameter("option3"));
 		updateQuestion.setOption4(request.getParameter("option4"));
-		String correctAnswer = request.getParameter("answer");
-		updateQuestion.setAnswer(request.getParameter(correctAnswer));
+		updateQuestion.setQuizName(request.getParameter("quizName"));
+		updateQuestion.setType(QuestionType.MCQ);
+		updateQuestion.setAnswer(request.getParameter("answer"));
+		updateQuestion.setId(Integer.parseInt(request.getParameter("id")));
+		return updateQuestion;
+	}
+
+	private Question prepareOpenQuestion(HttpServletRequest request) throws NumberFormatException {
+		final Question updateQuestion = new Question();
+		updateQuestion.setQuestion(request.getParameter("question"));
+		updateQuestion.setOption1("N/A");
+		updateQuestion.setOption2("N/A");
+		updateQuestion.setOption3("N/A");
+		updateQuestion.setOption4("N/A");
+		updateQuestion.setQuizName(request.getParameter("quizName"));
+		updateQuestion.setType(QuestionType.OPEN);
+		updateQuestion.setAnswer("");
 		updateQuestion.setId(Integer.parseInt(request.getParameter("id")));
 		return updateQuestion;
 	}

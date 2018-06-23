@@ -12,17 +12,18 @@
 	<div class="container">
 		<div class="jumbotron">
 			<div class="container">
-				<h1 class="text-info" align="center">Add New MCQ Question</h1>
+				<h1 class="text-info" align="center">Add Associative Question</h1>
 			</div>
+			<div align="center" class="form-group">
+      <label   class="control-label" for="select">
+<strong><font color="red"><u>This Page is disabled because of no idea about Associative Questions</u> </font></strong>     </label></div>
 		<div>	<a href="<%=request.getContextPath() %>/questionList">List of
 					Questions</a></div>
 			<div align="right">
-				<a href="selectQuestionType.jsp">Question Type</a>
-			</div>
-			<div align="left"><a href="<%=request.getContextPath() %>/usersService">List of Users</a></div>
-<div align="right">
 				<a href="adminLogin.html">Logout</a>
 			</div>
+			<div align="left"><a href="<%=request.getContextPath() %>/usersService">List of Users</a></div>
+
 		</div>
 		<form action="questionAction" method="post">
 			<div class="form-group row">
@@ -81,7 +82,7 @@
 			</div>
 			<div class="form-group row">
 				<div class="col-sm-10" align="center">
-					<button type="submit" name="mcq" value="mcq" class="btn btn-primary">Validate</button>
+					<button type="submit" name="assoc" value="assoc" disabled class="btn btn-primary">Validate</button>
 				</div>
 			</div>
 	</div>

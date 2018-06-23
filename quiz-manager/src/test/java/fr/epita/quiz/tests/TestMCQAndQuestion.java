@@ -58,7 +58,7 @@ public class TestMCQAndQuestion {
 	@Inject
 	SessionFactory factory;
 
-	@Test
+	// @Test
 	public void testSaveOrUpdateQuestion() {
 		final Session session = factory.openSession();
 		final Transaction tx = session.beginTransaction();
@@ -74,7 +74,7 @@ public class TestMCQAndQuestion {
 		session.close();
 	}
 
-	@Test
+	// @Test
 	public void testGetQuizType() {
 		final Question question = new Question();
 		question.setType(QuestionType.MCQ);
@@ -83,6 +83,13 @@ public class TestMCQAndQuestion {
 	}
 
 	@Test
+	public void testGetByUserName() {
+		Users user = new Users();
+		user = userDAO.getUsersByUserName("Bhrigu");
+		System.out.println(user.getUsername());
+	}
+
+	// @Test
 	public void testGetQuestionsByQuizType() {
 		final Question question = new Question();
 		question.setQuizName("test");
@@ -90,14 +97,14 @@ public class TestMCQAndQuestion {
 		System.out.println(stri.size());
 	}
 
-	@Test
+	// @Test
 	public void testGetAllQuestions() {
 		final Question question = new Question();
 		List<Question> questions = questDAO.getQuestions(question);
 		System.out.println(questions.size());
 	}
 
-	@Test
+	// @Test
 	public void testCreateOrUpdateUser() {
 		final Session session = factory.openSession();
 		final Transaction tx = session.beginTransaction();
@@ -112,20 +119,20 @@ public class TestMCQAndQuestion {
 		session.close();
 	}
 
-	@Test
+	// @Test
 	public void testGetAllUsers() {
 		final Users user = new Users();
 		List<Users> users = (List<Users>) userDAO.searchUsers(user);
 		System.out.println(users.size());
 	}
 
-	@Test
+	// @Test
 	public void testDeleteAllQuestion() {
 		final List<Question> question = new ArrayList<Question>();
 		questDAO.deleteAll(question);
 	}
 
-	@Test
+	// @Test
 	public void testDeleteQuestionById() {
 		final Question ques = new Question();
 		ques.setId(101);

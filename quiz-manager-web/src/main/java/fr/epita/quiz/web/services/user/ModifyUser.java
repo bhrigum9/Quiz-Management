@@ -54,7 +54,7 @@ public class ModifyUser extends SpringServlet {
 			user.setUsername(request.getParameter("username"));
 			user.setPassword(request.getParameter("password"));
 			user.setEnabled(true);
-			user.setUserRoleId(Integer.parseInt(request.getParameter("selection")));
+			user.setUserRoleId(Integer.parseInt(request.getParameter("id")));
 			user.setRole(RolesType.valueOf(request.getParameter("role")));
 			try {
 				repository.create(user);

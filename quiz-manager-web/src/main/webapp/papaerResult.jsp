@@ -14,7 +14,7 @@
   <%if(session.getAttribute("userName")!=null){ %>
     Welcome :<% out.print(session.getAttribute("userName"));%>
   <%} %>&nbsp;
-  <a href="logout.thml" >LogOut</a> 
+  <a href="logout.html" >LogOut</a> 
 </div>
  <table align="center" >
    <% int i=0; %>

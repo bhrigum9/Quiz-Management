@@ -31,11 +31,13 @@
 				</div>
 				
 							<div align="left"><a href="<%=request.getContextPath() %>/usersService">List of Users</a></div>
-							<div align="right">
-				<a href="adminLogin.html">Logout</a>
+				<div align="right">
+				<a href="selectQuestionType.jsp">Question Type</a>
 			</div>
 								<div>	<a href="question.jsp">Add New Question</a></div>
-				
+				<div align="right">
+				<a href="adminLogin.html">Logout</a>
+			</div>
 			</div>
 
 	</div>
@@ -48,12 +50,14 @@
 					<thead>
 						<tr>
 							<th>ID</th>
+							<th>Quiz Name</th>
 							<th>Question</th>
 							<th>Option1</th>
 							<th>Option2</th>
 							<th>Option3</th>
 							<th>Option4</th>
 							<th>Answer</th>
+							<th>QuestionType</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -70,15 +74,14 @@
 						   					   %>
 						<tr>
 							<td><input name="selection" type="radio" value="<%=id.getId()%>"/></td>
-							<%-- <td> <label for="id" name="id" id="id" value="<%=id.getId() %>"><%=id.getId() %></label></td> --%>
-<%-- 							<td><%=id.getId() %></td>
- --%>							
+        					<td><%=id.getQuizName() %></td>
   							<td><%=id.getQuestion() %></td>
 							<td><%=id.getOption1() %></td> 
 							<td><%=id.getOption2() %></td>
 							<td><%=id.getOption3() %></td>
 							<td><%=id.getOption4() %></td>
 							<td><%=id.getAnswer() %></td>
+							<td><%=id.getType() %></td>
 						</tr>
                         <%} 
                         }%>

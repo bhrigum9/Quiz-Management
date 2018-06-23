@@ -140,6 +140,20 @@ public abstract class GenericORMDao<T> {
 
 	/**
 	 * 
+	 * @param username
+	 * @return
+	 */
+	public Users getUsersByUserName(String username) {
+		final Session session = sf.openSession();
+		String hql = "from Users s where s.username = :username";
+		Query<Users> query = session.createQuery(hql);
+		query.setParameter("username", username);
+		List<Users> use = query.getResultList();
+		return use.get(0);
+	}
+
+	/**
+	 * 
 	 * @param id
 	 * @return
 	 */

@@ -26,7 +26,7 @@
 		<div>
 			<div class="jumbotron">
 				<div class="container">
-					<h1 class="text-info" align="center">List of all Quiz</h1>
+					<h1 class="text-info" align="center">List of all Quiz's Name</h1>
 				</div>
 			</div>
 

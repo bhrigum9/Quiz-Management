@@ -47,14 +47,31 @@ public class QuestionAction extends SpringServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			final Question addQuestion = prepareQuestion(request);
-			repository.create(addQuestion);
-			LOGGER.info("Question created Sucessfully");
-			response.sendRedirect("questionList");
-		} catch (Exception e) {
-			LOGGER.error(e);
-			e.printStackTrace();
+		if (request.getParameter("mcq") != null) {
+			try {
+				final Question addQuestion = prepareQuestion(request);
+				repository.create(addQuestion);
+				LOGGER.info("Question created Sucessfully");
+				response.sendRedirect("questionList");
+			} catch (Exception e) {
+				LOGGER.error(e);
+				LOGGER.info("Question creation Failed");
+				e.printStackTrace();
+			}
+		} else if (request.getParameter("open") != null) {
+			try {
+				final Question addQuestion = prepareOpenQuestion(request);
+				repository.create(addQuestion);
+				LOGGER.info("Question created Sucessfully");
+				response.sendRedirect("questionList");
+			} catch (Exception e) {
+				LOGGER.error(e);
+				LOGGER.info("Question creation Failed");
+				e.printStackTrace();
+			}
+
+		} else if (request.getParameter("assoc") != null) {
+			LOGGER.info("THIS FUNTIONALITY NOT PROVIDED YET");
 		}
 
 	}
@@ -74,6 +91,22 @@ public class QuestionAction extends SpringServlet {
 		addQuestion.setAnswer(request.getParameter(correctAnswer));
 		addQuestion.setQuizName(request.getParameter("quizName"));
 		addQuestion.setType(QuestionType.MCQ);
+		return addQuestion;
+	}
+
+	/**
+	 * @param request
+	 * @return
+	 */
+	private Question prepareOpenQuestion(HttpServletRequest request) {
+		final Question addQuestion = new Question();
+		addQuestion.setQuestion(request.getParameter("question"));
+		addQuestion.setQuizName(request.getParameter("quizName"));
+		addQuestion.setOption1("N/A");
+		addQuestion.setOption2("N/A");
+		addQuestion.setOption3("N/A");
+		addQuestion.setOption4("N/A");
+		addQuestion.setType(QuestionType.OPEN);
 		return addQuestion;
 	}
 

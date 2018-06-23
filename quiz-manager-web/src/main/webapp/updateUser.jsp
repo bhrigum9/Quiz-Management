@@ -9,6 +9,13 @@
  Users user = (Users) session.getAttribute("Users");
 %>
 <head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+$('select').on('change', function(){
+	alert(this.value);
+})
+</script>	
 <%
 	Boolean auth = (Boolean) session.getAttribute("authenticated");
 	if (auth == null || !auth) {
@@ -36,12 +43,17 @@
 			<div class="jumbotron">
 				<div class="container">
 					<h1 align="center" class="text-info">Update User</h1>
-					<div><a href="<%=request.getContextPath() %>/questionList">List ofQuestions</a> </div>
-					<div align="right">
+									<div align="left"><a href="<%=request.getContextPath() %>/usersService">List of Users</a></div>
+				<div align="right">
+				<a href="selectQuestionType.jsp">Question Type</a>
+			</div>
+								<div align="left">	<a href="question.jsp">Add New Question</a></div>
+				<div align="right">
 				<a href="adminLogin.html">Logout</a>
 			</div>
-						<div align="left"><a href="<%=request.getContextPath() %>/usersService">List of Users</a></div>
-							
+						<div align="left">	<a href="<%=request.getContextPath() %>/questionList">List of
+					Questions</a></div>		
+				
 				</div>
 			</div>
 		</div>
@@ -49,23 +61,18 @@
 			<div class="form-group row">
 				 <input name="id"
 					value="<%=user.getUserRoleId()%>" type="hidden" class="form-control"
-					id="id" placeholder="enter  id" readonly="readonly" />
+					id="id" name="id" readonly="readonly" />
 			</div>
 			<div class="form-group row">
-				<label for="question" class="col-sm-2 col-form-label">Username
-					</label> <input name="question" value="<%=user.getUsername()%>"
-					type="text" class="form-control" id="question"
+				<label for="username" class="col-sm-2 col-form-label">Username
+					</label> <input name="username" value="<%=user.getUsername()%>"
+					type="text" class="form-control" id="username"
 					placeholder="Enter unique username" />
 			</div>
 			<div class="form-group row">
 				<label for="email" class="col-sm-2 col-form-label">Email</label>
 				<input name="email" value="<%=user.getEmail()%>" type="email"
 					class="form-control" id="email" placeholder="Enter your Email" />
-			</div>
-			<div class="form-group row">
-				<label for="role" class="col-sm-2 col-form-label">Role</label>
-				<input name="role" value="<%=user.getRole()%>" type="text"
-					class="form-control" id="role" placeholder="Enter your Role" />
 			</div>
 		
 			<div class="form-group row">
@@ -74,6 +81,18 @@
 					class="form-control" id="password" placeholder="Enter your Password" />
 			</div>
 		
+                
+
+ <div class="form-group row">
+                    <label for="role">Role</label>
+                    <select  class="form-control" name="role" disabled>
+                      <option selected value="<%=user.getRole()%>"><%=user.getRole()%></option>
+                    </select> 
+                    
+                                    
+                </div>
+		<input  value="<%=user.getRole()%>" id="mytext"  type="hidden"
+					class="form-control" id="role" name="role"/>  
 			<button type="submit" style="margin-center: 30px" class="btn btn-primary" value="Update"
 				name="update">Update</button>
 

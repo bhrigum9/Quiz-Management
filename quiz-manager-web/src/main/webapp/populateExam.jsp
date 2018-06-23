@@ -33,7 +33,7 @@
 				</b>
 			</div>
 			<div class="container" align="right">
-				<b> <a href="logout.thml">LogOut</a></b>
+				<b> <a href="logout.html">LogOut</a></b>
 			</div>
 
 
